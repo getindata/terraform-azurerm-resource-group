@@ -75,7 +75,7 @@ module "resource_group" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.12.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.0 |
 
 ## Requirements
 
