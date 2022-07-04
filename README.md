@@ -17,17 +17,6 @@
 
 This module manages Azure Resource Group.
 
-## USAGE
-
-_Example usage of the module - terraform code snippet_
-
-```terraform
-```
-
-## NOTES
-
-_Additional information that should be made public, for ex. how to solve known issues, additional descriptions/suggestions_
-
 <!-- BEGIN_TF_DOCS -->
 ## EXAMPLES
 ```hcl
