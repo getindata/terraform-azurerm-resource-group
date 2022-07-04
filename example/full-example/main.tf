@@ -1,6 +1,7 @@
-module "terraform_module_template" {
+module "resource_group" {
   source  = "../../"
   context = module.this.context
 
-  example_var = "This is example value."
+  name     = "network"
+  location = "West Europe"
 }

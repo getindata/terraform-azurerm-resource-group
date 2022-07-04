@@ -1,3 +1,3 @@
-provider "null" {
-  # Configuration options
+provider "azurerm" {
+  features {}
 }
