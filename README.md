@@ -1,4 +1,4 @@
-# Terraform Module Template
+# Azure Resource Group Terraform Module
 
 <!--- Pick Cloud provider Badge -->
 ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
