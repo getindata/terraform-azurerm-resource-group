@@ -1,6 +1,4 @@
-# Example, compulsory input variable
-
-variable "example_var" {
-  description = "Example varible passed into the module"
+variable "location" {
   type        = string
+  description = "The Azure Region where the Resource Group should exist."
 }

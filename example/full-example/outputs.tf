@@ -1,4 +1,4 @@
-output "example_output" {
-  description = "Example output of the module"
-  value       = module.terraform_module_template
+output "network_resource_group_name" {
+  description = "Name of the resource group used for networking"
+  value       = module.resource_group.name
 }

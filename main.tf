@@ -1,13 +1,7 @@
-# Example resource that outputs the input value and 
-# echoes it's base64 encoded version locally 
+resource "azurerm_resource_group" "this_resource_group" {
+  count = module.this.enabled ? 1 : 0
 
-resource "null_resource" "output_input" {
-
-  triggers = {
-    input = var.example_var
-  }
-
-  provisioner "local-exec" {
-    command = "echo ${var.example_var} | base64"
-  }
+  name     = local.name_from_descriptor
+  location = var.location
+  tags     = module.this.tags
 }
