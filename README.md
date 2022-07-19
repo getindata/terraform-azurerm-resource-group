@@ -18,7 +18,7 @@
 This module manages Azure Resource Group.
 
 <!-- BEGIN_TF_DOCS -->
-## EXAMPLES
+## Usage
 ```hcl
 module "resource_group" {
   source  = "../../"
@@ -28,6 +28,35 @@ module "resource_group" {
   location = "West Europe"
 }
 ```
+
+## Consumption Budget
+You can create a consumption budget for the resource group and setup notifications based on various thersholds.
+
+```hcl
+consumption_budgets = {
+default = {
+amount = 100
+time_period = {
+start_date = "2022-07-01T00:00:00Z"
+}
+notifications = {
+forecastedGreaterThan100 = {
+contact_emails = ["notify@example.com"]
+operator       = "GreaterThan"
+threshold      = 100
+threshold_type = "Forecasted"
+}
+}
+}
+}
+```
+
+> This module supports only e-mail addresses for notification.
+
+## Examples
+
+- [Basic Resource Group](https://github.com/getindata/terraform-azurerm-resource-group/tree/master/examples/basic)
+- [Resource Group with Consumption Budget](https://github.com/getindata/terraform-azurerm-resource-group/tree/master/examples/full-example)
 
 
 
@@ -39,7 +68,9 @@ module "resource_group" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_consumption_budgets"></a> [consumption\_budgets](#input\_consumption\_budgets) | Consumption budget resources associated with this resource group, it should be a map of values:<br>`{<br>  amount = number<br>  time_period = object<br>  notifications = map<br><br>  #optional<br>  time_grain = string<br>}`<br>`time_period` is an object of `start_date` (which is required) and `end_date` (which is optional).<br>`time_grain` must be one of Monthly, Quarterly, Annually, BillingMonth, BillingQuarter, or BillingYear. Defaults to Monthly<br>`notifications` is a map of values:<br>`{<br>  #optional<br>  contact_emails = list(string)<br>  operator = string<br>  threshold = string<br>  threshold_type = string<br>}`<br>`contact_emails` is a list of email addresses to send the budget notification to when the threshold is exceeded<br>`operator` - the comparison operator for the notification. Must be one of EqualTo, GreaterThan, or GreaterThanOrEqualTo. Defaults to `EqualTo`<br>`threshold` - threshold value associated with a notification. Notification is sent when the cost exceeded the threshold. It is always percent and has to be between 0 and 1000. Defaults to 90.<br>`threshold_type` - the type of threshold for the notification. This determines whether the notification is triggered by forecasted costs or actual costs. The allowed values are Actual and Forecasted. Default is Actual.<br><br>For more information, please visit: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/consumption_budget_resource_group | `map(any)` | `{}` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
+| <a name="input_default_consumption_budget_notification_emails"></a> [default\_consumption\_budget\_notification\_emails](#input\_default\_consumption\_budget\_notification\_emails) | List of e-mail addresses that will be used for notifications if they were not provided explicitly | `list(string)` | `[]` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
@@ -88,7 +119,8 @@ module "resource_group" {
 
 | Name | Type |
 |------|------|
-| [azurerm_resource_group.this_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
+| [azurerm_consumption_budget_resource_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/consumption_budget_resource_group) | resource |
+| [azurerm_resource_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 <!-- END_TF_DOCS -->
 
 ## CONTRIBUTING
