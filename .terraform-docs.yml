@@ -7,10 +7,24 @@ sections:
   show: [all]
 
 content: |-
-  ## EXAMPLES
+  ## Usage
   ```hcl
-  {{ include "example/full-example/main.tf" }}
+  {{ include "examples/basic/main.tf" }}
   ```
+
+  ## Consumption Budget
+  You can create a consumption budget for the resource group and setup notifications based on various thersholds.
+
+  ```hcl
+  {{ include "examples/full-example/terraform.tfvars" }}
+  ```
+
+  > This module supports only e-mail addresses for notification.
+
+  ## Examples
+
+  - [Basic Resource Group](https://github.com/getindata/terraform-azurerm-resource-group/tree/master/examples/basic)
+  - [Resource Group with Consumption Budget](https://github.com/getindata/terraform-azurerm-resource-group/tree/master/examples/full-example)
 
   {{ .Header }}
 
