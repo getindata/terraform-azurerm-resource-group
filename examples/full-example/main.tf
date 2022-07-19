@@ -18,24 +18,5 @@ module "resource_group" {
   name     = "network"
   location = "West Europe"
 
-  consumption_budgets = {
-    default = {
-      amount = 100
-      time_period = {
-        start_date = "2022-07-01T00:00:00Z"
-      }
-      notifications = {
-        actualEqualTo90 = {
-          //other parameters are taken from defaults
-          contact_emails = ["jakub.igla@getindata.com"]
-        }
-        forecastedGreaterThan100 = {
-          contact_emails = ["jakub.igla@getindata.com"]
-          operator       = "GreaterThan"
-          threshold      = 100
-          threshold_type = "Forecasted"
-        }
-      }
-    }
-  }
+  consumption_budgets = var.consumption_budgets
 }
