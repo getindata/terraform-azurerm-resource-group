@@ -16,7 +16,7 @@ content: |-
   You can create a consumption budget for the resource group and setup notifications based on various thersholds.
 
   ```hcl
-  {{ include "examples/tfvars/consumption-budgets.tfvars" }}
+  {{ include "examples/full-example/terraform.tfvars" }}
   ```
 
   > This module supports only e-mail addresses for notification.
