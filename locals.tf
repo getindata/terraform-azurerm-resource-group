@@ -3,6 +3,8 @@ locals {
 
   consumption_budget_defaults = {
     time_grain = "Monthly"
+    consumption_budget_start_date = (length(time_static.consumption_budget_start_date) == 0 ? null :
+    format("%s-01T00:00:00Z", substr(one(time_static.consumption_budget_start_date[*].id), 0, 7)))
     notifications = {
       contact_emails = var.default_consumption_budget_notification_emails
       operator       = "EqualTo"
